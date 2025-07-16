@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@utility log_image {
+  @apply w-[40vw] object-center object-cover max-h-[100vh];
+}
+@utility label {
+  @apply flex flex-col text-xl font-bold;
+}
+@utility input {
+  @apply h-6 border px-2 mx-1 p-5  rounded-md font-medium text-lg text-white focus:outline-none focus:border-blue-400;
+}
+@utility heading {
+  @apply text-blue-500 text-4xl px-3.5 text-center  md:text-5xl mb-3 font-bold hover:drop-shadow-teal-400 drop-shadow-sm ;
+}
+@utility btn {
+  @apply text-blue-200/95 p-2 mt-4 rounded-md bg-blue-700 font-bold hover:bg-blue-800 hover:translate-y-0.5 duration-500 transition-all;
+}
+@utility subheading {
+  @apply text-blue-400 md:text-2xl text-lg text-center mb-10 hover:translate-y-0.5 duration-200 transition-all;
+}
+.input:placeholder-shown{
+  color: rgba(255, 255, 255, 0.585);
+}
