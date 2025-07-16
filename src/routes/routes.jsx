@@ -1,6 +1,7 @@
-import { Suspense, lazy } from "react";
+import { Children, Suspense, lazy } from "react";
 const Login = lazy(() => import("../pages/login"));
-
+const Home = lazy(()=> import("../pages/home"));
+const Published = lazy(()=> import("../components/published"));
 const routes = [
   {
     path: "/",
@@ -9,6 +10,25 @@ const routes = [
         <Login />
       </Suspense>
     ),
+  },
+  {
+    path: "/home",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Home />
+      </Suspense>
+    ),
+    children:[
+        {
+            path: '',
+            index: true,
+            element:(
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Published />
+                </Suspense>
+            )
+        }
+    ]
   },
 ];
 export default routes;

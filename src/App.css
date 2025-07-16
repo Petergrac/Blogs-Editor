@@ -1,4 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Libertinus+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libertinus+Mono&display=swap");
 @import "tailwindcss";
+
+.inter {
+  font-family: "Inter", sans-serif;
+  font-weight: normal;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.libertinus {
+  font-weight: 800;
+  font-family: "Libertinus Mono", monospace;
+  font-style: normal;
+}
 
 @utility log_image {
   @apply w-[40vw] object-center object-cover max-h-[100vh];
@@ -10,7 +24,7 @@
   @apply h-6 border px-2 mx-1 p-5  rounded-md font-medium text-lg text-white focus:outline-none focus:border-blue-400;
 }
 @utility heading {
-  @apply text-blue-500 text-4xl px-3.5 text-center  md:text-5xl mb-3 font-bold hover:drop-shadow-teal-400 drop-shadow-sm ;
+  @apply text-blue-500 text-4xl px-3.5 text-center  md:text-5xl mb-3 font-bold hover:drop-shadow-teal-400 drop-shadow-sm;
 }
 @utility btn {
   @apply text-blue-200/95 p-2 mt-4 rounded-md bg-blue-700 font-bold hover:bg-blue-800 hover:translate-y-0.5 duration-500 transition-all;
@@ -18,6 +32,16 @@
 @utility subheading {
   @apply text-blue-400 md:text-2xl text-lg text-center mb-10 hover:translate-y-0.5 duration-200 transition-all;
 }
-.input:placeholder-shown{
+.input:placeholder-shown {
   color: rgba(255, 255, 255, 0.585);
+}
+/* NAV BAR */
+@utility navbar {
+  @apply flex justify-around bg-slate-700 p-2 text-white/75 font-bold md:p-5 hover:drop-shadow-xl drop-shadow-blue-400;
+}
+@utility name-text {
+  @apply text-2xl md:text-4xl p-4 text-white/75 hover:drop-shadow-xl drop-shadow-blue-400 bg-slate-800;
+}
+@utility active {
+  @apply text-orange-500 font-bold translate-y-0.5;
 }
