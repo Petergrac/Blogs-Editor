@@ -14,6 +14,7 @@ function Login() {
     if (isMobile) {
       gsap.from(".anim", {
         y: -200,
+        opacity: 0,
         duration: 1,
         rotate: 45,
         ease: "bounce.out",
@@ -21,10 +22,13 @@ function Login() {
     } else {
       const tl = gsap.timeline();
       tl.from(".anim", {
+        opacity: 0,
         y: -200,
         duration: 1,
         ease: "bounce.out",
       }).from(".log", {
+        opacity: 0,
+        scale: 0.25,
         y: +700,
         rotation: 270,
         duration: 3,
