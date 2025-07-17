@@ -3,7 +3,11 @@ import { useMediaQuery } from "react-responsive";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,9 +46,24 @@ function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   // Submitting the data
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const { email, password } = formData;
     // Submit data to server
+    try {
+      const res = await axios.post("http://localhost:3000/api/login", {
+        email,
+        password,
+      });
+      const token = res.data.token;
+      if (token) {
+        localStorage.setItem("token", token);
+        navigate('/home/published');
+      }
+    } catch (error) {
+      console.error("Error Happened when logging in.", error.message);
+      throw error;
+    }
   };
   return (
     <div

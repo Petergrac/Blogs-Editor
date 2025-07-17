@@ -7,13 +7,13 @@ function Navbar() {
     <div className="">
       <h1 className="name-text libertinus">Welcome [your name]</h1>
       <nav className="navbar inter">
-        <NavLink className={navLink} to="">
+        <NavLink className={navLink} to="/home/published">
           Published
         </NavLink>
-        <NavLink className={navLink} to="/drafts">
+        <NavLink className={navLink} to="/home/drafts">
           Drafts
         </NavLink>
-        <NavLink className={navLink} to="/new">
+        <NavLink className={navLink} to="/home/new">
           New Post
         </NavLink>
       </nav>
