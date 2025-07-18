@@ -5,7 +5,7 @@ function Navbar() {
     isActive ? "active" : "text-white font-bold";
   return (
     <div className="">
-      <h1 className="name-text libertinus">Welcome [your name]</h1>
+      <h1 className="name-text libertinus">Welcome Author </h1>
       <nav className="navbar inter">
         <NavLink className={navLink} to="/home/published">
           Published

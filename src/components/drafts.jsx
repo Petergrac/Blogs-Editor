@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllDrafts } from "../api/api";
 import Post from "./article";
 import { useNavigate } from "react-router-dom";
+import Loading from "./loadingComponent";
 
 function Drafts() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function Drafts() {
     queryFn: () => getAllDrafts(),
   });
   if (isLoading) {
-    return <div>Data is being loaded</div>;
+    return <Loading/>;
   }
   if (error) {
     const status = error?.response?.status;
@@ -18,14 +19,14 @@ function Drafts() {
       return navigate("/");
     }
     if (status === 500) {
-      return <p>Internal server error</p>;
+      return <p className="none">Internal server error</p>;
     }
     if (status === 404) {
-      return <p>There are no drafts</p>;
+      return <p className="none">There are no drafts</p>;
     }
   }
   if (!data || data.length === 0) {
-    return <div>There are no drafts</div>;
+    return <div className="none">There are no drafts</div>;
   }
   return (
     <div className="bg-slate-900 text-white/75 min-h-[100vh]">

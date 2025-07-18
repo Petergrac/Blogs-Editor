@@ -2,6 +2,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { handleUpdate } from "../logic/articleLogic";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 function EditorComponent({ props }) {
   const {
     editorRef,
@@ -13,14 +14,14 @@ function EditorComponent({ props }) {
     handleSubmit,
     id,
   } = props;
-  const navigate = useNavigate()
+  const isMobile = useMediaQuery({ maxWidth: 760 });
+  const navigate = useNavigate();
   const handlePostUpdate = async () => {
     const submitted = await handleUpdate(editorRef, title, status, id);
-    if(submitted){
-        navigate('/home/published')
-    }
-    else{
-        alert('Post could not be saved')
+    if (submitted) {
+      navigate("/home/published");
+    } else {
+      alert("Post could not be saved");
     }
   };
   return (
@@ -48,25 +49,36 @@ function EditorComponent({ props }) {
         }}
       />
 
-      <button
-        onClick={id ? handlePostUpdate : handleSubmit}
-        className="bg-blue-600 text-white p-2 rounded"
+      <div
+        className={
+          isMobile ? "flex flex-col items-center justify-center gap-2" : ""
+        }
       >
-        Save Post
-      </button>
-      <select
-        className="border p-2 w-1/4 ml-2 text-white/55 rounded-md"
-        name="status"
-        id="status"
-        value={status} // controlled input
-        onChange={(e) => setStatus(e.target.value)}
-      >
-        <option value="PUBLISHED">Published</option>
-        <option default value="DRAFT">
-          Draft
-        </option>
-      </select>
-      <NavLink to="/home/published">Back to homepage</NavLink>
+        <button
+          onClick={id ? handlePostUpdate : handleSubmit}
+          className="bg-blue-600 text-white p-2 rounded"
+        >
+          Save Post
+        </button>
+        <select
+          className={isMobile ? "border p-2 w-1/2 text-white/55 rounded-md":"w-1/4 ml-2 border p-2  text-white/55 rounded-md"}
+          name="status"
+          id="status"
+          value={status} // controlled input
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value="PUBLISHED">Published</option>
+          <option default value="DRAFT">
+            Draft
+          </option>
+        </select>
+        <NavLink
+          className="bg-blue-400 px-4 py-1 mx-4 rounded-md"
+          to="/home/published"
+        >
+          Back to homepage
+        </NavLink>
+      </div>
     </div>
   );
 }

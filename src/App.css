@@ -53,3 +53,6 @@
 @utility post-title{
   @apply bg-zinc-700 p-2 w-full mx-4 text-center text-white/75 rounded-md;
 }
+@utility none{
+  @apply text-center flex items-center justify-center bg-slate-800 font-bold text-3xl text-white min-h-[90vh]
+}

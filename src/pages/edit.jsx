@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { handlePostById } from "../logic/articleLogic";
+import Loading from "../components/loadingComponent";
 const EditComponent = lazy(() => import("../components/edit"));
 function EditPost() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ function EditPost() {
     queryFn: () => handlePostById(id),
   });
   if (isLoading) {
-    return <p>Loading....</p>;
+    return <Loading />;
   }
   if (error) {
     console.log(error);
