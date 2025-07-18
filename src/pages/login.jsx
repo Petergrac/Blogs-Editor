@@ -70,7 +70,7 @@ function Login() {
       className={`bg-slate-900 min-h-[100vh] anim ${isMobile ? "" : "flex"}`}
     >
       <div className={`${isMobile ? "hidden" : ""} relative`}>
-        <p className="log absolute top-1/4 left-1/4 text-8xl text-white/75 backdrop-blur-xs backdrop-hue-rotate-30 font-bold">
+        <p className="log absolute top-1/4 text-2xl left-1/4 md:text-8xl text-white/75 backdrop-blur-xs backdrop-hue-rotate-30 font-bold">
           LOGIN
         </p>
         <img src="/authors.jpeg" alt="log image" className="log_image" />

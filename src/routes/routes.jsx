@@ -1,5 +1,6 @@
-import { Children, Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import Drafts from "../components/drafts";
+const EditPost = lazy(() => import("../pages/edit"));
 const Login = lazy(() => import("../pages/login"));
 const Home = lazy(() => import("../pages/home"));
 const Published = lazy(() => import("../components/published"));
@@ -39,14 +40,22 @@ const routes = [
         ),
       },
       {
-        path: '/home/drafts',
-        element:(
-            <Suspense fallback={<div>Loading...</div>}>
-                <Drafts />
-            </Suspense>
-        )
-      }
+        path: "/home/drafts",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Drafts />
+          </Suspense>
+        ),
+      },
     ],
+  },
+  {
+    path: "/edit/:id",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <EditPost />
+      </Suspense>
+    ),
   },
 ];
 export default routes;

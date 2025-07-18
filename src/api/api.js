@@ -15,22 +15,14 @@ export default api;
 
 // Get all Posts
 async function getPublishedPosts() {
-  try {
     const res = await api.get("http://localhost:3000/api/posts/published");
     return res.data.posts;
-  } catch (error) {
-    console.error("Error happened in the api", error.message);
-  }
 }
 
 // Get all Drafts
 async function getAllDrafts() {
-  try {
     const res = await api.get("http://localhost:3000/api/posts/drafts");
     return res.data.drafts;
-  } catch (error) {
-    console.error("Error happened in the api", error.message);
-  }
 }
 
 export { getPublishedPosts, getAllDrafts };

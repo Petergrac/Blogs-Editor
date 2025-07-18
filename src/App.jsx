@@ -7,9 +7,9 @@ const router = createBrowserRouter(routes);
 
 function App() {
   return (
-    <QueryClientProvider client={new QueryClient()}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+      <QueryClientProvider client={new QueryClient()}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
   );
 }
 export default App;

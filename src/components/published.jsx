@@ -9,22 +9,26 @@ function Published() {
     queryFn: () => getPublishedPosts(),
   });
   const navigate = useNavigate();
-  if (error) {
-    return (
-      <div>
-        <p>
-          There are no published posts or you are not authorized. Try to publish
-          something.
-        </p>
-        <button onClick={() => navigate("/")}>Back to Login</button>
-      </div>
-    );
-  }
   if (isLoading) {
-    return <div>Is Loading data....</div>;
+    return <div>Data is being loaded</div>;
+  }
+  if (error) {
+    const status = error?.response?.status;
+    if (status === 401) {
+      return navigate("/");
+    }
+    if (status === 500) {
+      return <p>Internal server error</p>;
+    }
+    if (status === 404) {
+      return <p>There are no posts</p>;
+    }
+  }
+  if (!data || data.length === 0) {
+    return <div>There are no posts</div>;
   }
   return (
-    <div className="bg-slate-900 text-white/75">
+    <div className="bg-slate-900 text-white/75 min-h-[80vh]">
       {data.map((post) => (
         <div key={post.id}>
           <Post post={post} />

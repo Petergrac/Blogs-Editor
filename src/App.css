@@ -45,3 +45,11 @@
 @utility active {
   @apply text-orange-500 font-bold translate-y-0.5;
 }
+
+/* Articles */
+@utility art-btn{
+  @apply px-2 py-1  m-1 rounded-md hover:translate-y-0.5 duration-400 transition-all;
+}
+@utility post-title{
+  @apply bg-zinc-700 p-2 w-full mx-4 text-center text-white/75 rounded-md;
+}
