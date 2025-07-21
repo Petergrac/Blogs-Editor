@@ -54,7 +54,7 @@ function Login() {
     const { email, password } = formData;
     // Submit data to server
     try {
-      const res = await axios.post("http://10.71.60.224:3000/api/login", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
         email,
         password,
       });

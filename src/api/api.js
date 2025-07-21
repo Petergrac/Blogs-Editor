@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://10.71.60.224:3000/api" });
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL});
 
 // Intercept the response
 api.interceptors.request.use((config) => {
@@ -15,13 +15,13 @@ export default api;
 
 // Get all Posts
 async function getPublishedPosts() {
-  const res = await api.get("http://10.71.60.224:3000/api/posts/published");
+  const res = await api.get(`/posts/published`);
   return res.data.posts;
 }
 
 // Get all Drafts
 async function getAllDrafts() {
-  const res = await api.get("http://10.71.60.224:3000/api/posts/drafts");
+  const res = await api.get(`/posts/drafts`);
   return res.data.drafts;
 }
 

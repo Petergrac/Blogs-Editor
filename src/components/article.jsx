@@ -3,11 +3,13 @@ import { useMutation } from "@tanstack/react-query";
 import Loading from "./loadingComponent";
 import { handleDelete, handlePublish } from "../logic/articleLogic";
 import { useGSAP } from "@gsap/react";
+import { useQueryClient } from "@tanstack/react-query";
 import gsap from "gsap";
 import { useRef } from "react";
 function Post({ post }) {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const articleRef = useRef()
+  const articleRef = useRef();
   // Publish
   const { mutate, isPending, error } = useMutation({
     mutationFn: () => handlePublish(post),
@@ -18,28 +20,43 @@ function Post({ post }) {
     mutate();
   };
   // Animation
-  useGSAP(()=>{
-    gsap.from(articleRef.current,{
+  useGSAP(() => {
+    gsap.from(articleRef.current, {
       y: -100,
       duration: 1,
-      scale: .2,
+      scale: 0.2,
       stagger: 0.2,
-      ease: 'power2.out'
-    })
-  },[])
+      ease: "power2.out",
+    });
+  }, []);
+  // Delete
+  const { mutate: deleteMutate, error: deleteError } = useMutation({
+    mutationFn: () => handleDelete(post),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+  });
   if (isPending) return <Loading />;
   if (error) return <p className="none">Something went wrong</p>;
-  // Delete
-  const deletePost = async (post) => {
-    const isDeleted = await handleDelete(post);
-    if (isDeleted) {
-      navigate("/home/published");
-    }
-    alert("Post was not deleted");
+  
+  const deletePost = () => {
+    deleteMutate();
   };
+  if (deleteError) {
+    const status = error?.response?.status;
+    if (status === 401) {
+      return navigate("/");
+    }
+    return (
+      <div className="flex min-h-screen justify-center items-center bg-slate-800">
+        Error occurred and the post could not be deleted.
+      </div>
+    );
+  }
   post;
   return (
-    <div ref={articleRef} className="article-anim p-4 space-y-4 border border-white/25 mx-3 md:mx-10 rounded-md mb-4">
+    <div
+      ref={articleRef}
+      className="article-anim p-4 space-y-4 border border-white/25 mx-3 md:mx-10 rounded-md mb-4"
+    >
       <div>
         <p className="text-2xl font-bold text-center">{post.title}</p>
         <div
@@ -75,9 +92,12 @@ function Post({ post }) {
             {new Date(post.updatedAt).toLocaleString()}
           </span>
         </p>
-        <p className="font-bold">Comments: <span className="text-[#dc4392]">{post._count.comments}</span></p>
+        <p className="font-bold">
+          Comments:
+          <span className="text-[#dc4392]">{post._count.comments}</span>
+        </p>
       </div>
-      <button className="art-btn bg-rose-700" onClick={() => deletePost(post)}>
+      <button className="art-btn bg-rose-700" onClick={() => deletePost()}>
         Delete
       </button>
       <button

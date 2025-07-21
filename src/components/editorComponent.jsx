@@ -3,6 +3,7 @@ import { handleUpdate } from "../logic/articleLogic";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+
 function EditorComponent({ props }) {
   const {
     editorRef,
@@ -42,10 +43,10 @@ function EditorComponent({ props }) {
         init={{
           height: 500,
           menubar: false,
+          plugins: ["image", "link", "code", "imagetools"],
           toolbar:
-            "undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help",
+            "undo redo | formatselect | bold italic | alignleft aligncenter alignright | link image | code",
+          branding: false,
         }}
       />
 
@@ -61,7 +62,11 @@ function EditorComponent({ props }) {
           Save Post
         </button>
         <select
-          className={isMobile ? "border p-2 w-1/2 text-white/55 rounded-md":"w-1/4 ml-2 border p-2  text-white/55 rounded-md"}
+          className={
+            isMobile
+              ? "border p-2 w-1/2 text-white/55 rounded-md"
+              : "w-1/4 ml-2 border p-2  text-white/55 rounded-md"
+          }
           name="status"
           id="status"
           value={status} // controlled input

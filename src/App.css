@@ -56,3 +56,6 @@
 @utility none{
   @apply text-center flex items-center justify-center bg-slate-800 font-bold text-3xl text-white min-h-[90vh]
 }
+@utility error-page{
+  @apply min-h-screen flex bg-slate-800 font-bold justify-center items-center text-2xl text-white/75
+}

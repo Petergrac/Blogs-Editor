@@ -3,7 +3,7 @@ import api from "../api/api.js";
 async function handlePublish(post) {
   try {
     const res = await api.patch(
-      `http://10.71.60.224:3000/api/posts/${post.id}/publish`,
+      `/posts/${post.id}/publish`,
       {
         status: "PUBLISHED",
       }
@@ -18,7 +18,7 @@ async function handlePublish(post) {
 const handleDelete = async (post) => {
   try {
     const res = await api.delete(
-      `http://10.71.60.224:3000/api/posts/${post.id}`
+      `/posts/${post.id}`
     );
     if (res.data) {
       return true;
@@ -34,7 +34,7 @@ const handleNewPost = async (editorRef, title, status) => {
   if (editorRef.current) {
     const content = editorRef.current.getContent();
     try {
-      const res = await api.post("http://10.71.60.224:3000/api/posts", {
+      const res = await api.post("/posts", {
         title,
         content,
         status,
@@ -48,7 +48,7 @@ const handleNewPost = async (editorRef, title, status) => {
 };
 // Get Post by id
 const handlePostById = async (id) => {
-  const res = await api.get(`http://10.71.60.224:3000/api/posts/${id}`);
+  const res = await api.get(`/posts/${id}`);
   return res.data.post;
 };
 
@@ -57,7 +57,7 @@ const handleUpdate = async (editorRef, title, status, id) => {
   if (editorRef.current) {
     const content = editorRef.current.getContent();
     try {
-      const res = await api.patch(`http://10.71.60.224:3000/api/posts/${id}`, {
+      const res = await api.patch(`/posts/${id}`, {
         title,
         content,
         status,
