@@ -13,7 +13,7 @@ function PostEditor() {
   const navigate = useNavigate();
 
   const { mutate, isPending, error } = useMutation({
-    mutationFn: () => handleNewPost( editorRef, title, status ),
+    mutationFn: () => handleNewPost(editorRef, title, status),
     onSuccess: () => {
       alert("Post created!");
       navigate("/home/published");
@@ -21,7 +21,7 @@ function PostEditor() {
   });
 
   const handleSubmit = () => {
-    console.log("Handle submit called");
+    ("Handle submit called");
     mutate();
   };
 

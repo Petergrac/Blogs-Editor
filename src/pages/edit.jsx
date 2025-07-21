@@ -14,7 +14,7 @@ function EditPost() {
     return <Loading />;
   }
   if (error) {
-    console.log(error);
+    error;
     switch (error) {
       case 404:
         return <p>Post Not Found</p>;

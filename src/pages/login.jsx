@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ function Login() {
     email: "",
     password: "",
   });
+  const [emailError, setEmailError] = useState("hidden");
+  const [passError, setPassError] = useState("hidden");
   const isMobile = useMediaQuery({ maxWidth: 760 });
   // Animation
   useGSAP(() => {
@@ -51,14 +54,25 @@ function Login() {
     const { email, password } = formData;
     // Submit data to server
     try {
-      const res = await axios.post("http://localhost:3000/api/login", {
+      const res = await axios.post("http://10.71.60.224:3000/api/login", {
         email,
         password,
       });
       const token = res.data.token;
       if (token) {
+        const decoded = jwtDecode(token);
+        const userId = decoded.id || decoded.useId;
+        localStorage.setItem("currentUser", userId);
         localStorage.setItem("token", token);
-        navigate('/home/published');
+        navigate("/home/published");
+      }
+      const message = res?.data?.message;
+      // (message)
+      if (message === "Incorrect email") {
+        setEmailError("");
+      }
+      if (message === "Incorrect Password") {
+        setPassError("");
       }
     } catch (error) {
       console.error("Error Happened when logging in.", error.message);
@@ -99,7 +113,7 @@ function Login() {
                 required
               />
             </label>
-            <p className="text-red-500 hidden">Incorrect Email</p>
+            <p className={`text-red-500 ${emailError}`}>Incorrect Email</p>
             <label className="text-blue-300/85 label" htmlFor="">
               Password *:
               <input
@@ -112,7 +126,7 @@ function Login() {
                 placeholder="Your password"
               />
             </label>
-            <p className="text-red-500 hidden">Incorrect password</p>
+            <p className={`text-red-500 ${passError}`}>Incorrect password</p>
             <div className="flex justify-center">
               <button className="btn" type="submit">
                 Login

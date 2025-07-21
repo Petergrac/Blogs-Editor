@@ -11,7 +11,7 @@ function Drafts() {
     queryFn: () => getAllDrafts(),
   });
   if (isLoading) {
-    return <Loading/>;
+    return <Loading />;
   }
   if (error) {
     const status = error?.response?.status;
@@ -22,11 +22,21 @@ function Drafts() {
       return <p className="none">Internal server error</p>;
     }
     if (status === 404) {
-      return <p className="none">There are no drafts</p>;
+      return (
+        <p className="none">
+          There are no drafts.
+          <p>Make sure you registered as an author in Blog App.</p>
+        </p>
+      );
     }
   }
   if (!data || data.length === 0) {
-    return <div className="none">There are no drafts</div>;
+    return (
+      <div className="none flex-col">
+        There are no drafts.
+        <p>Make sure you registered as an author in Blog App</p>
+      </div>
+    );
   }
   return (
     <div className="bg-slate-900 text-white/75 min-h-[100vh]">

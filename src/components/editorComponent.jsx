@@ -25,7 +25,7 @@ function EditorComponent({ props }) {
     }
   };
   return (
-    <div className="p-4 space-y-4 bg-slate-900 min-h-[80vh]">
+    <div className="p-4 space-y-4 bg-slate-900 min-h-[90vh]">
       <input
         type="text"
         placeholder="Post Title"
