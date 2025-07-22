@@ -55,9 +55,18 @@ function EditorComponent({ props }) {
         init={{
           height: 500,
           menubar: false,
-          plugins: ["image", "link", "code", "imagetools"],
+          plugins: [
+            "textcolor",
+            "colorpicker",
+            "image",
+            "link",
+            "code",
+            "codesample",
+            "imagetools",
+            "lists",
+          ],
           toolbar:
-            "undo redo | formatselect | bold italic | alignleft aligncenter alignright | link image | code",
+            "undo redo | formatselect| forecolor backcolor | codesample |bold italic | alignleft aligncenter alignright | link image | code | bullist numlist outdent indent",
           branding: false,
         }}
       />

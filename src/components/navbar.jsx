@@ -18,13 +18,23 @@ function Navbar() {
   if (error) {
     return console.log(error.message);
   }
+  console.log(data.avatar);
   return (
     <div className="sticky top-0 z-100">
       <div className="flex justify-between bg-slate-800">
         <h1 className="name-text libertinus">Welcome {data.username}</h1>
-        <h1 className="name-text libertinus text-xl md:text-3xl">
-          {data.email}
-        </h1>
+        <div className="flex justify-center items-center">
+          <div className="hidden md:flex">
+            <img
+              src={data.avatar}
+              alt="avatar"
+              className="object-cover w-16 h-16 rounded-full"
+            />
+          </div>
+          <h1 className="name-text libertinus text-xl md:text-3xl">
+            {data.email}
+          </h1>
+        </div>
       </div>
       <nav className="navbar inter">
         <NavLink className={navLink} to="/">
