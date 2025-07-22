@@ -1,24 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPublishedPosts } from "../api/api";
-import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
+import { Link } from "react-router-dom";
 import Loading from "./loadingComponent";
 const Post = lazy(() => import("../components/article"));
 function Published() {
-
   const { data, error, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: () => getPublishedPosts(),
   });
-  const navigate = useNavigate();
 
   if (isLoading) {
     return <Loading />;
   }
   if (error) {
-    const status = error?.response?.status;
+    const status = error.status;
     if (status === 401) {
-      return navigate("/");
+      return (
+        <div className="min-h-screen bg-slate-800 flex flex-col items-center justify-center">
+          <p className="text-2xl font-bold text-white/75">You must be logged in to access your posts.</p>
+          <Link to={`/login`}>Log in if you are an author</Link>
+        </div>
+      );
     }
     if (status === 500) {
       return <p className="none">Internal server error</p>;
@@ -41,9 +44,9 @@ function Published() {
     );
   }
   return (
-    <div className="bg-slate-900 text-white/75 min-h-[80vh] p-4">
+    <div className="bg-slate-900 text-white/75 min-h-screen p-4">
       {data.map((post) => (
-        <div key={post.id} >
+        <div key={post.id}>
           <Post post={post} />
         </div>
       ))}

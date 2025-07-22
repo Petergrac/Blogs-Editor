@@ -13,7 +13,7 @@ function Post({ post }) {
   // Publish
   const { mutate, isPending, error } = useMutation({
     mutationFn: () => handlePublish(post),
-    onSuccess: () => navigate("/home/published"),
+    onSuccess: () => navigate("/"),
   });
 
   const publishPost = () => {
@@ -32,11 +32,11 @@ function Post({ post }) {
   // Delete
   const { mutate: deleteMutate, error: deleteError } = useMutation({
     mutationFn: () => handleDelete(post),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["drafts"] }),
   });
   if (isPending) return <Loading />;
   if (error) return <p className="none">Something went wrong</p>;
-  
+
   const deletePost = () => {
     deleteMutate();
   };

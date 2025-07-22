@@ -13,18 +13,27 @@ function EditorComponent({ props }) {
     setStatus,
     setTitle,
     handleSubmit,
+    warning,
     id,
+    setWarning,
   } = props;
   const isMobile = useMediaQuery({ maxWidth: 760 });
   const navigate = useNavigate();
   const handlePostUpdate = async () => {
-    const submitted = await handleUpdate(editorRef, title, status, id);
-    if (submitted) {
-      navigate("/home/published");
+    const isTitleEmpty = title.trim();
+    console.log(title);
+    if (isTitleEmpty === "") {
+      alert("Title cannot be empty");
     } else {
-      alert("Post could not be saved");
+      const submitted = await handleUpdate(editorRef, title, status, id);
+      if (submitted) {
+        navigate("/");
+      } else {
+        alert("Post could not be saved");
+      }
     }
   };
+
   return (
     <div className="p-4 space-y-4 bg-slate-900 min-h-[90vh]">
       <input
@@ -32,9 +41,12 @@ function EditorComponent({ props }) {
         placeholder="Post Title"
         className="border p-2 w-full text-white/55 rounded-md"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => {
+          setTitle(e.target.value);
+          setWarning("hidden");
+        }}
       />
-
+      <p className={`text-red-400 ${warning}`}>Title Cannot be empty</p>
       <Editor
         className="bg-blue-400"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -49,7 +61,6 @@ function EditorComponent({ props }) {
           branding: false,
         }}
       />
-
       <div
         className={
           isMobile ? "flex flex-col items-center justify-center gap-2" : ""
@@ -77,10 +88,7 @@ function EditorComponent({ props }) {
             Draft
           </option>
         </select>
-        <NavLink
-          className="bg-blue-400 px-4 py-1 mx-4 rounded-md"
-          to="/home/published"
-        >
+        <NavLink className="bg-blue-400 px-4 py-1 mx-4 rounded-md" to="/">
           Back to homepage
         </NavLink>
       </div>

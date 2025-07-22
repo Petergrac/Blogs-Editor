@@ -1,12 +1,9 @@
-import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
-  const error = useRouteError();
   return (
     <div className="text-center flex flex-col items-center justify-center bg-slate-800 min-h-screen">
       <h1 className="text-4xl font-bold text-red-600">Oops!</h1>
-      <p className="mt-4 text-3xl text-white/73">An error occurred:</p>
-      <pre className="text-gray-500 mt-2">{error.statusText || error.message}</pre>
+      <p className="mt-4 text-3xl text-white/73">An error occurred.</p>
     </div>
   );
 }

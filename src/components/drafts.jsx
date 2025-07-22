@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllDrafts } from "../api/api";
 import Post from "./article";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loading from "./loadingComponent";
 
 function Drafts() {
-  const navigate = useNavigate();
   const { data, error, isLoading } = useQuery({
     queryKey: ["drafts"],
     queryFn: () => getAllDrafts(),
@@ -16,7 +15,14 @@ function Drafts() {
   if (error) {
     const status = error?.response?.status;
     if (status === 401) {
-      return navigate("/");
+      return (
+        <div className="min-h-screen bg-slate-800">
+          <p className="text-white/80">You are not authorized</p>
+          <Link to="/login" className="p-2 bg-blue-400 rounded-md text-white">
+            Go to login
+          </Link>
+        </div>
+      );
     }
     if (status === 500) {
       return <p className="none">Internal server error</p>;

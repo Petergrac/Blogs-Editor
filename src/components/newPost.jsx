@@ -3,26 +3,34 @@ import Loading from "./loadingComponent";
 import { useNavigate } from "react-router-dom";
 import { handleNewPost } from "../logic/articleLogic";
 import EditorComponent from "./editorComponent";
-
 import { useMutation } from "@tanstack/react-query";
+
 
 function PostEditor() {
   const editorRef = useRef(null);
   const [status, setStatus] = useState("DRAFT");
   const [title, setTitle] = useState("");
+  const [warning, setWarning] = useState('hidden');
   const navigate = useNavigate();
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: () => handleNewPost(editorRef, title, status),
     onSuccess: () => {
       alert("Post created!");
-      navigate("/home/published");
+      navigate("/");
     },
   });
 
   const handleSubmit = () => {
-    ("Handle submit called");
-    mutate();
+    const trimTitle = title.trim();
+    if (trimTitle === "") {
+      setWarning('');
+    }
+    else if(!editorRef){
+      alert('Content cannot be empty')
+    } else {
+      mutate();
+    }
   };
 
   if (isPending) return <Loading />;
@@ -42,9 +50,11 @@ function PostEditor() {
   }
 
   return (
-    <EditorComponent
-      props={{ editorRef, title, status, setStatus, setTitle, handleSubmit }}
-    />
+    <div>
+      <EditorComponent
+        props={{ editorRef, title, status, setStatus, setTitle, handleSubmit, warning, setWarning }}
+      />
+    </div>
   );
 }
 

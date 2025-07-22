@@ -33,17 +33,12 @@ const handleDelete = async (post) => {
 const handleNewPost = async (editorRef, title, status) => {
   if (editorRef.current) {
     const content = editorRef.current.getContent();
-    try {
       const res = await api.post("/posts", {
         title,
         content,
         status,
       });
       return res.data;
-    } catch (error) {
-      console.error("Error saving post:", error);
-      alert("Failed to save post.");
-    }
   }
 };
 // Get Post by id

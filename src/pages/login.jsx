@@ -58,16 +58,23 @@ function Login() {
         email,
         password,
       });
-      const token = res.data.token;
-      if (token) {
+      const data = res.data;
+      if (data.accessToken) {
+        // Retrieve the tokens
+        const token = data.accessToken;
+        const refresh_token = data.refreshToken;
+        // Save the tokens
+        localStorage.setItem("refresh_token", refresh_token);
+        localStorage.setItem("token", data.accessToken);
+        // Retrieve the user id
         const decoded = jwtDecode(token);
         const userId = decoded.id || decoded.useId;
+        // Save the user id
         localStorage.setItem("currentUser", userId);
-        localStorage.setItem("token", token);
-        navigate("/home/published");
+        navigate("/published");
       }
-      const message = res?.data?.message;
-      // (message)
+      // If there is an error
+      const message =data?.message;
       if (message === "Incorrect email") {
         setEmailError("");
       }
